@@ -1,0 +1,1980 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obstetrics Management Protocol for Hospitals | Ministry of Health Ethiopia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0a3751',
+                            glow: '#38bdf8'
+                        }
+                    },
+                    boxShadow: {
+                        'glass-sm': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        '3d-card': '0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+                        'glow-cyan': '0 0 20px rgba(56, 189, 248, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .light .glass-card {
+            background: rgba(248, 250, 252, 0.92);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 16px 30px -8px rgba(0, 0, 0, 0.4), 0 0 20px rgba(56, 189, 248, 0.2);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.6);
+        }
+        /* Search Highlight Styles */
+        mark.search-highlight {
+            background: linear-gradient(120deg, #f59e0b 0%, #d97706 100%);
+            color: #ffffff;
+            padding: 1px 4px;
+            border-radius: 4px;
+            font-weight: 700;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+        }
+        mark.search-highlight.active-match {
+            background: linear-gradient(120deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.8);
+            transform: scale(1.05);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col transition-colors duration-300 light:bg-slate-100 light:text-slate-900">
+
+    <!-- TOP NAVIGATION HEADER WITH FIXED SEARCH BAR -->
+    <header class="sticky top-0 z-50 glass-panel border-b border-slate-800 light:border-slate-200">
+        <div id="progress-bar" class="h-1 bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 w-0 transition-all duration-150"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center space-x-3 shrink-0">
+                <button id="mobile-menu-btn" class="lg:hidden text-slate-400 hover:text-white p-2">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/30">
+                    <i class="fa-solid fa-hospital-user text-white text-lg"></i>
+                </div>
+                <div class="hidden md:block">
+                    <h1 class="text-base font-bold bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-emerald-400 light:from-sky-700 light:to-emerald-700">
+                        Obstetrics Protocol Ethiopia
+                    </h1>
+                    <p class="text-[11px] text-slate-400 light:text-slate-600 font-medium">Ministry of Health (Jan 2021)</p>
+                </div>
+            </div>
+
+            <!-- HEADER SEARCH TOOLBAR WITH INSTANT MATCH CONTROLS -->
+            <div class="flex-1 max-w-xl">
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-sky-400 text-sm"></i>
+                    <input type="text" id="header-search-input" placeholder="Search protocol (e.g., MgSO4, Eclampsia, PPH)..." 
+                        class="w-full pl-9 pr-24 py-1.5 bg-slate-900/90 light:bg-white border border-sky-500/40 rounded-xl text-xs sm:text-sm text-slate-100 light:text-slate-900 placeholder-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-500/30 transition shadow-inner">
+                    
+                    <div class="absolute right-2 flex items-center space-x-1">
+                        <button id="clear-header-search" class="hidden text-slate-400 hover:text-white p-1 text-xs" title="Clear Search">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <div id="header-search-controls" class="hidden flex items-center bg-slate-800 light:bg-slate-200 rounded-lg px-1 py-0.5 text-[11px]">
+                            <span id="match-counter" class="px-1 text-sky-400 font-bold">0/0</span>
+                            <button id="prev-match-btn" class="p-1 hover:text-sky-400 text-slate-300 light:text-slate-700" title="Previous Match"><i class="fa-solid fa-chevron-up"></i></button>
+                            <button id="next-match-btn" class="p-1 hover:text-sky-400 text-slate-300 light:text-slate-700" title="Next Match"><i class="fa-solid fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOOTNOTE BADGE & UTILITIES -->
+            <div class="flex items-center space-x-2 shrink-0">
+                <div class="hidden xl:flex items-center px-3 py-1.5 rounded-full bg-slate-800/90 light:bg-slate-200/90 border border-sky-500/40 text-xs text-sky-400 light:text-sky-800 font-semibold shadow-glass-sm">
+                    <i class="fa-solid fa-user-doctor mr-2 text-emerald-400"></i>
+                    <span>App developed By Solomon Abebe MD, MPH RH</span>
+                </div>
+
+                <button id="theme-toggle" title="Toggle Theme" class="w-9 h-9 rounded-lg bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 hover:text-white flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block text-amber-400"></i>
+                </button>
+
+                <button id="calculator-btn" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold shadow-md shadow-sky-600/30 flex items-center space-x-1.5 transition">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span class="hidden sm:inline">Calculators</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div class="flex-1 flex max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6 relative">
+        
+        <!-- SIDEBAR NAVIGATION & CATEGORY FILTERS -->
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-80 bg-slate-900 light:bg-slate-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out lg:static lg:w-80 flex-shrink-0 flex flex-col gap-4 border-r border-slate-800 light:border-slate-200 lg:border-none p-4 lg:p-0">
+            
+            <!-- CATEGORY FILTER BUTTONS -->
+            <div class="flex flex-wrap gap-1 text-xs">
+                <button class="toc-filter-btn px-2.5 py-1 rounded-lg bg-sky-600 text-white font-medium" data-category="all">All (33)</button>
+                <button class="toc-filter-btn px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 font-medium" data-category="emergency"><i class="fa-solid fa-bolt mr-1 text-rose-400"></i>Emergency</button>
+                <button class="toc-filter-btn px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 font-medium" data-category="anc">ANC</button>
+                <button class="toc-filter-btn px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 font-medium" data-category="labor">Labor</button>
+                <button class="toc-filter-btn px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 text-slate-300 light:text-slate-700 font-medium" data-category="favorites"><i class="fa-solid fa-star text-amber-400 mr-1"></i>Saved</button>
+            </div>
+
+            <!-- TOC MENU CONTAINER -->
+            <nav id="toc-tree" class="flex-1 overflow-y-auto pr-1 space-y-1 glass-card p-2 rounded-xl text-xs sm:text-sm max-h-[calc(100vh-180px)]">
+                <!-- Loaded dynamically -->
+            </nav>
+        </aside>
+
+        <!-- BACKDROP FOR MOBILE -->
+        <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-950/80 z-30 hidden lg:hidden"></div>
+
+        <!-- PROTOCOL DISPLAY AREA -->
+        <main class="flex-1 min-w-0 space-y-8 pb-16">
+            
+            <!-- HERO BANNER CARD -->
+            <div class="glass-card p-6 sm:p-8 rounded-2xl relative overflow-hidden border border-sky-500/30 shadow-3d-card">
+                <div class="absolute -right-10 -top-10 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                        <div class="flex items-center gap-2 text-xs font-semibold text-sky-400 light:text-sky-600 uppercase tracking-wider">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Ethiopian National Guideline • 2021 Revision
+                        </div>
+                        <div class="text-xs px-2.5 py-1 bg-slate-800/80 light:bg-slate-200 rounded-lg text-slate-300 light:text-slate-700 border border-slate-700 light:border-slate-300 font-semibold">
+                            <i class="fa-solid fa-user-check text-emerald-400 mr-1"></i> App developed By Solomon Abebe MD, MPH/RH
+                        </div>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white light:text-slate-900 tracking-tight">
+                        Obstetrics Management Protocol for Hospitals
+                    </h2>
+                    <p class="mt-2 text-slate-300 light:text-slate-600 text-sm sm:text-base leading-relaxed max-w-3xl">
+                        Comprehensive evidence-based clinical guide for healthcare providers in Ethiopian hospitals. Includes real-time multi-keyword live search, high-contrast highlighting, jump-to-match navigation, clinical tools, and full detail across all 33 clinical modules.
+                    </p>
+                </div>
+            </div>
+
+            <!-- CHAPTER MODULE CONTENT WRAPPER -->
+            <div id="protocol-content" class="space-y-8">
+                <!-- Rendered dynamically -->
+            </div>
+
+        </main>
+    </div>
+
+    <!-- FLOATING BACK TO TOP BUTTON -->
+    <div class="fixed bottom-6 right-6 z-40">
+        <button id="back-to-top" class="w-11 h-11 rounded-full bg-sky-600 hover:bg-sky-500 text-white flex items-center justify-center shadow-lg shadow-sky-600/40 transition opacity-0 pointer-events-none">
+            <i class="fa-solid fa-arrow-up"></i>
+        </button>
+    </div>
+
+    <!-- CLINICAL CALCULATORS MODAL -->
+    <div id="modal-calculator" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md hidden">
+        <div class="glass-card w-full max-w-2xl rounded-2xl p-6 border border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button id="close-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white p-2">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold text-sky-400 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-calculator"></i> Clinical Decision & Dosage Calculators
+            </h3>
+            <p class="text-xs text-slate-400 mb-4">Obstetrics Management Protocol • Solomon Abebe MD, MPH RH</p>
+
+            <div class="flex border-b border-slate-800 text-xs font-semibold mb-4 gap-2">
+                <button class="modal-tab-btn px-3 py-2 border-b-2 border-sky-400 text-sky-400" data-tab="bishop">Bishop Score</button>
+                <button class="modal-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white" data-tab="oxytocin">Oxytocin Titration</button>
+                <button class="modal-tab-btn px-3 py-2 border-b-2 border-transparent text-slate-400 hover:text-white" data-tab="mgso4">MgSO4 Zuspan Regimen</button>
+            </div>
+
+            <!-- Bishop Calculator -->
+            <div id="modal-tab-bishop" class="modal-tab-content space-y-4 text-xs">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Dilation (cm):</label>
+                        <select id="bishop-dil" class="w-full bg-slate-900 light:bg-white border border-slate-700 p-2 rounded text-slate-100 light:text-slate-900">
+                            <option value="0">Closed (0 pt)</option>
+                            <option value="1">1-2 cm (1 pt)</option>
+                            <option value="2">3-4 cm (2 pt)</option>
+                            <option value="3">&gt;=5 cm (3 pt)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Effacement (%):</label>
+                        <select id="bishop-eff" class="w-full bg-slate-900 light:bg-white border border-slate-700 p-2 rounded text-slate-100 light:text-slate-900">
+                            <option value="0">0-30% (0 pt)</option>
+                            <option value="1">40-50% (1 pt)</option>
+                            <option value="2">60-70% (2 pt)</option>
+                            <option value="3">&gt;=80% (3 pt)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Station:</label>
+                        <select id="bishop-sta" class="w-full bg-slate-900 light:bg-white border border-slate-700 p-2 rounded text-slate-100 light:text-slate-900">
+                            <option value="0">-3 (0 pt)</option>
+                            <option value="1">-2 (1 pt)</option>
+                            <option value="2">-1, 0 (2 pt)</option>
+                            <option value="3">+1, +2 (3 pt)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Consistency:</label>
+                        <select id="bishop-con" class="w-full bg-slate-900 light:bg-white border border-slate-700 p-2 rounded text-slate-100 light:text-slate-900">
+                            <option value="0">Firm (0 pt)</option>
+                            <option value="1">Medium (1 pt)</option>
+                            <option value="2">Soft (2 pt)</option>
+                        </select>
+                    </div>
+                </div>
+                <button id="calc-bishop-btn" class="w-full py-2 bg-sky-600 hover:bg-sky-500 text-white rounded font-bold">Calculate Bishop Score</button>
+                <div id="bishop-result" class="p-3 bg-slate-900/80 rounded-lg text-center font-bold text-sky-400 border border-slate-800">
+                    Select criteria and click calculate.
+                </div>
+            </div>
+
+            <!-- Oxytocin Table -->
+            <div id="modal-tab-oxytocin" class="modal-tab-content space-y-3 text-xs hidden">
+                <p class="text-slate-300">Standard Oxytocin Infusion Chart (10 IU Oxytocin in 1000 mL Normal Saline = 10 mIU/mL):</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse border border-slate-800">
+                        <thead>
+                            <tr class="bg-slate-800 text-sky-300">
+                                <th class="p-2 border border-slate-700">Dose (mIU/min)</th>
+                                <th class="p-2 border border-slate-700">Drops/min (20 gtt/mL)</th>
+                                <th class="p-2 border border-slate-700">Infusion Pump (mL/hr)</th>
+                                <th class="p-2 border border-slate-700">Interval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-2 font-bold text-emerald-400">2 mIU/min (Starting)</td>
+                                <td class="p-2">4 drops/min</td>
+                                <td class="p-2">12 mL/hr</td>
+                                <td class="p-2">Start dose</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-2 font-bold">4 mIU/min</td>
+                                <td class="p-2">8 drops/min</td>
+                                <td class="p-2">24 mL/hr</td>
+                                <td class="p-2">After 30 mins</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-2 font-bold">8 mIU/min</td>
+                                <td class="p-2">16 drops/min</td>
+                                <td class="p-2">48 mL/hr</td>
+                                <td class="p-2">After 60 mins</td>
+                            </tr>
+                            <tr class="border-b border-slate-800">
+                                <td class="p-2 font-bold">16 mIU/min</td>
+                                <td class="p-2">32 drops/min</td>
+                                <td class="p-2">96 mL/hr</td>
+                                <td class="p-2">After 90 mins</td>
+                            </tr>
+                            <tr>
+                                <td class="p-2 font-bold text-rose-400">32 mIU/min (Max)</td>
+                                <td class="p-2">64 drops/min</td>
+                                <td class="p-2">192 mL/hr</td>
+                                <td class="p-2">Maximum limit</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- MgSO4 Regimen -->
+            <div id="modal-tab-mgso4" class="modal-tab-content space-y-3 text-xs hidden">
+                <div class="p-3 bg-emerald-950/60 border border-emerald-600/40 rounded-xl">
+                    <h5 class="font-bold text-emerald-400 mb-1">Zuspan Regimen Loading Dose</h5>
+                    <p>• <strong>4g IV:</strong> Give 20 mL of 20% MgSO4 solution IV slowly over 5-10 minutes.</p>
+                    <p>• <strong>10g IM:</strong> Give 10 mL of 50% MgSO4 solution deep IM into each buttock (5g per side) mixed with 1 mL 2% Lidocaine.</p>
+                </div>
+                <div class="p-3 bg-slate-900 border border-slate-800 rounded-xl">
+                    <h5 class="font-bold text-sky-400 mb-1">Maintenance Regimen</h5>
+                    <p>• <strong>5g IM (50% solution):</strong> Administer every 4 hours into alternate buttocks for 24 hours post-delivery or post-last seizure.</p>
+                </div>
+                <div class="p-3 bg-rose-950/60 border border-rose-600/40 rounded-xl">
+                    <h5 class="font-bold text-rose-400 mb-1">Toxicity Monitoring (Prior to each IM dose)</h5>
+                    <p>1. Patellar reflex must be PRESENT.</p>
+                    <p>2. Respiratory rate must be &gt;= 16 breaths/min.</p>
+                    <p>3. Urine output &gt;= 30 mL/hr over preceding 4 hours.</p>
+                    <p class="font-bold text-amber-300 mt-1">Antidote: Calcium Gluconate 1g IV (10 mL 10% solution) slowly over 3 minutes if respiratory depression occurs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER WITH CREDITS -->
+    <footer class="mt-auto border-t border-slate-800 light:border-slate-200 glass-panel py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400 light:text-slate-600">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-sky-600/20 text-sky-400 flex items-center justify-center font-bold">MoH</div>
+                <div>
+                    <p class="font-semibold text-slate-200 light:text-slate-800">Obstetrics Management Protocol for Hospitals (Jan 2021)</p>
+                    <p>Federal Democratic Republic of Ethiopia Ministry of Health</p>
+                </div>
+            </div>
+
+            <div class="px-4 py-2 rounded-xl bg-slate-900/90 light:bg-slate-200/80 border border-sky-500/30 text-center md:text-right">
+                <span class="text-slate-400 block text-[10px] uppercase tracking-wider font-semibold">Obstetrics Protocol App Development</span>
+                <span class="text-sky-400 light:text-sky-700 font-bold text-sm">Solomon Abebe MD, MPH/RH</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PROTOCOL REPOSITORY & APPLICATION LOGIC -->
+    <script>
+        // COMPLETE PROTOCOL DATASET (ALL 33 CHAPTERS)
+        const protocolData = [
+            {
+                id: 1,
+                title: "1. Respectful Maternity Care (RMC)",
+                category: "anc",
+                icon: "fa-heart-pulse",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm leading-relaxed"><strong>Core Definition:</strong> Respectful Maternity Care (RMC) is an essential component of quality maternal care that emphasizes fundamental human rights, dignity, privacy, freedom from abuse, informed consent, and continuous supportive care during childbearing.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Disrespect & Abuse vs. Human Rights Standard</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Category of Abuse</th>
+                                        <th class="p-2 border border-slate-700">Clinical Manifestation</th>
+                                        <th class="p-2 border border-slate-700">Human Right Violation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Physical Abuse</td>
+                                        <td class="p-2">Slapping, pinching, physical restraint during labor</td>
+                                        <td class="p-2 text-rose-400">Right to freedom from ill-treatment</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Non-Consented Care</td>
+                                        <td class="p-2">Performing procedures (episiotomy, CS) without informed choice</td>
+                                        <td class="p-2 text-rose-400">Right to autonomy and bodily integrity</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Non-Confidential Care</td>
+                                        <td class="p-2">Lack of physical curtaining/drapes, public discussion of HIV/medical status</td>
+                                        <td class="p-2 text-rose-400">Right to privacy and confidentiality</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Non-Dignified Care</td>
+                                        <td class="p-2">Shouting, scolding, scolding for crying, rough pelvic exams</td>
+                                        <td class="p-2 text-rose-400">Right to dignity and respect</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Discrimination</td>
+                                        <td class="p-2">Poorer treatment based on age, ethnicity, HIV status, parity</td>
+                                        <td class="p-2 text-rose-400">Right to equality & non-discrimination</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Abandonment / Denial</td>
+                                        <td class="p-2">Leaving woman alone during labor, ignoring cries for help</td>
+                                        <td class="p-2 text-rose-400">Right to life & highest attainable health</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Detention in Facility</td>
+                                        <td class="p-2">Holding mother/baby due to inability to settle medical bills</td>
+                                        <td class="p-2 text-rose-400">Right to liberty & security of person</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mt-3">
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400 mb-1">System-Related Contributors</h5>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Lack of standardized guidelines and accountability</li>
+                                    <li>Inadequate infrastructure (no privacy screens, dirty wards)</li>
+                                    <li>Severe staff shortages and excessive workload</li>
+                                    <li>Shortage of essential drugs and supplies</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-amber-400 mb-1">Provider-Related Contributors</h5>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Provider burnout and occupational stress</li>
+                                    <li>Biased attitudes towards low-resource mothers</li>
+                                    <li>Normalizing harsh treatment as labor management</li>
+                                    <li>Deficient training in communication skills</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm mt-3">7 Core Principles of Respectful Care</h4>
+                        <ol class="list-decimal pl-5 text-xs space-y-1">
+                            <li>Freedom from harm and ill-treatment.</li>
+                            <li>Right to information, informed consent, and refusal.</li>
+                            <li>Confidentiality and physical privacy at all stages.</li>
+                            <li>Dignified, courteous, and non-judgmental treatment.</li>
+                            <li>Equality, freedom from discrimination, and equitable care.</li>
+                            <li>Right to timely healthcare and highest attainable standard.</li>
+                            <li>Right to liberty, autonomy, self-determination, and companion of choice.</li>
+                        </ol>
+                    </div>
+                `
+            },
+            {
+                id: 2,
+                title: "2. Rapid Initial Assessment & Emergency Management",
+                category: "emergency",
+                icon: "fa-bolt",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-rose-500/10 border border-rose-500/30 rounded-xl">
+                            <h4 class="font-bold text-rose-400 text-sm flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Quick Check Procedure</h4>
+                            <p class="text-xs mt-1">Assess immediately upon arrival: Observing transport, active vaginal bleeding, moaning/bearing down, consciousness level, respiratory distress, and visible shock.</p>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Emergency Assessment & Immediate Action Matrix</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Danger Sign</th>
+                                        <th class="p-2 border border-slate-700">Differential Diagnosis</th>
+                                        <th class="p-2 border border-slate-700">Immediate Action & Resuscitation Steps</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-rose-300">Breathing Difficulty / Cyanosis</td>
+                                        <td class="p-2">Severe Anemia, Pulmonary Edema, Heart Failure, Asthma, Pulmonary Embolism</td>
+                                        <td class="p-2">
+                                            • Administer high-flow O2 (6-8 L/min via face mask).<br>
+                                            • Position head elevated / semi-Fowler's.<br>
+                                            • Target SpO2 &gt;= 94%. Furosemide 40mg IV if pulmonary edema.
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-amber-300">Convulsions / Unconsciousness</td>
+                                        <td class="p-2">Eclampsia, Hypoglycemia, Severe Malaria, Epilepsy, Meningitis</td>
+                                        <td class="p-2">
+                                            • Protect airway, left lateral position, suction.<br>
+                                            • MgSO4 loading dose (4g IV + 10g IM).<br>
+                                            • Check random blood sugar (RBS); IV Dextrose 50% 50mL if &lt;60 mg/dL.
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-emerald-300">High-Grade Fever (&gt;38.5°C)</td>
+                                        <td class="p-2">Severe UTI, Pyelonephritis, Malaria, Endometritis, Chorioamnionitis, Peritonitis</td>
+                                        <td class="p-2">
+                                            • IV access, draw blood cultures & malaria RDT.<br>
+                                            • Paracetamol 1g PO/IV for fever.<br>
+                                            • Empiric broad-spectrum IV antibiotics (Ampicillin + Gentamicin).
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-sky-300">Severe Abdominal Pain</td>
+                                        <td class="p-2">Ruptured Ectopic, Placental Abruption, Uterine Rupture, Peritonitis</td>
+                                        <td class="p-2">
+                                            • Assess vital signs and abdominal rigidity.<br>
+                                            • Establish 2 large-bore (16G/18G) IV cannula.<br>
+                                            • Rapid NS/RL bolus; prepare for emergency laparotomy/CS.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold text-rose-400">Vaginal Bleeding</td>
+                                        <td class="p-2">Abortion, Ectopic, Placenta Previa, Abruption, PPH, Uterine Rupture</td>
+                                        <td class="p-2">
+                                            • NEVER do digital vaginal exam if late pregnancy until Previa ruled out.<br>
+                                            • Crossmatch 2-4 units PRBC.<br>
+                                            • Rapid IV crystalloids; elevate legs, give oxytocin if PPH.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Referral & Transport Protocol</h5>
+                            <p>If hospital capabilities are exceeded: Call receiving facility before transfer, assign qualified midwife/nurse to accompany, ensure continuous IV line, oxygen transport, carry full medical record notes, and monitor vitals every 15 minutes in ambulance.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 3,
+                title: "3. Triage & Liaison Protocol",
+                category: "emergency",
+                icon: "fa-siren-on",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Obstetric Triage Unit:</strong> Dedicated 24/7 emergency entrance area enabling rapid identification and prioritization of pregnant or postpartum women based on clinical urgency.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Acuity Level & Target Contact Standards</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 text-xs text-center">
+                            <div class="p-3 bg-rose-950/80 border border-rose-600 rounded-xl">
+                                <div class="font-bold text-rose-400">Level 1: Resuscitative</div>
+                                <div class="text-[10px] text-slate-300 mt-1">Cardiac arrest, severe shock, eclamptic fit</div>
+                                <div class="mt-2 text-xs font-bold bg-rose-600 text-white rounded py-0.5">IMMEDIATE</div>
+                            </div>
+                            <div class="p-3 bg-orange-950/80 border border-orange-600 rounded-xl">
+                                <div class="font-bold text-orange-400">Level 2: Emergent</div>
+                                <div class="text-[10px] text-slate-300 mt-1">Severe preeclampsia, severe APH, cord prolapse</div>
+                                <div class="mt-2 text-xs font-bold bg-orange-600 text-white rounded py-0.5">&lt;= 15 mins</div>
+                            </div>
+                            <div class="p-3 bg-amber-950/80 border border-amber-600 rounded-xl">
+                                <div class="font-bold text-amber-400">Level 3: Urgent</div>
+                                <div class="text-[10px] text-slate-300 mt-1">Active labor, mild PEE, PROM without fever</div>
+                                <div class="mt-2 text-xs font-bold bg-amber-600 text-white rounded py-0.5">&lt;= 30 mins</div>
+                            </div>
+                            <div class="p-3 bg-emerald-950/80 border border-emerald-600 rounded-xl">
+                                <div class="font-bold text-emerald-400">Level 4: Less Urgent</div>
+                                <div class="text-[10px] text-slate-300 mt-1">Latent labor phase, mild UTI, early pregnancy pain</div>
+                                <div class="mt-2 text-xs font-bold bg-emerald-600 text-white rounded py-0.5">&lt;= 60 mins</div>
+                            </div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-slate-300">Level 5: Non-Urgent</div>
+                                <div class="text-[10px] text-slate-300 mt-1">Routine checkup, script refill, minor complaints</div>
+                                <div class="mt-2 text-xs font-bold bg-slate-700 text-white rounded py-0.5">&lt;= 120 mins</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Essential Triage Equipment Minimum Standard</h5>
+                            <p class="mt-1">Automated/Manual BP apparatus, pulse oximeters, fetal doppler, adult weighing scale, emergency crash cart (MgSO4, Hydralazine, Oxytocin, IV fluids, airway equipment), triage recording sheets, and direct liaison hotline phone.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 4,
+                title: "4. Preconception Care Guidelines",
+                category: "anc",
+                icon: "fa-seedling",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Provision of biomedical, behavioral, and social health interventions to women and couples before conception occurs to optimize maternal and fetal outcomes.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Key Preconception Interventions & Dosage Guidelines</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400">Nutritional Prophylaxis</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li><strong>Folic Acid (Standard):</strong> 400 mcg (0.4mg) PO daily starting at least 3 months prior to conception.</li>
+                                    <li><strong>Folic Acid (High Risk):</strong> 5 mg PO daily for women with prior Neural Tube Defect (NTD), DM, or taking anti-epileptic drugs.</li>
+                                    <li><strong>Iron Supplementation:</strong> 60 mg elemental iron daily in endemic areas.</li>
+                                    <li><strong>Calcium Supplementation:</strong> 1.5 - 2.0 g elemental calcium daily for high-risk preeclampsia prevention.</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-rose-400">Teratogenic Drug Discontinuation</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li><strong>ACE Inhibitors / ARBs:</strong> Switch to Labetalol or Methyldopa.</li>
+                                    <li><strong>Valproic Acid / Hydantoin:</strong> Consult neurology; transition to safer anticonvulsants & high-dose folate.</li>
+                                    <li><strong>Isotretinoin:</strong> Strict contraception; stop at least 1-3 months before conception.</li>
+                                    <li><strong>High Dose Vitamin A (&gt;10,000 IU/d):</strong> Avoid.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Vaccination Rule: MMR & Live Vaccines</h5>
+                            <p class="mt-1">Live attenuated vaccines (MMR, Varicella) must be administered at least 28 days (1 month) BEFORE conception. Pregnancy must be avoided during this 28-day window.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 5,
+                title: "5. Antenatal Care (ANC) Protocol",
+                category: "anc",
+                icon: "fa-person-pregnant",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>WHO 8-Contact ANC Model:</strong> Replaces 4-FANC model to reduce perinatal mortality and improve maternal experience.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Schedule of 8 ANC Contacts</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-center">
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 1</div>
+                                <div>&lt;= 12 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 2</div>
+                                <div>20 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 3</div>
+                                <div>26 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 4</div>
+                                <div>30 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 5</div>
+                                <div>34 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 6</div>
+                                <div>36 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 7</div>
+                                <div>38 Weeks</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Contact 8</div>
+                                <div>40 Weeks</div>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">First Contact Mandatory Laboratory Panel</h4>
+                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                            <li>• Hemoglobin / Hematocrit (Repeat at 32w & 38w)</li>
+                            <li>• Blood Group & Rh Factor (Indirect Coombs if Rh negative)</li>
+                            <li>• HIV Rapid Diagnostic Test (Repeat at 28-36w)</li>
+                            <li>• Syphilis VDRL / RPR Screening</li>
+                            <li>• Hepatitis B Surface Antigen (HBsAg)</li>
+                            <li>• Urine Dipstick & Urine Culture / Microscopy for ASB</li>
+                            <li>• 75g OGTT at 24-28 weeks for GDM screening</li>
+                            <li>• Ultrasound Scan (Before 24 weeks for accurate dating)</li>
+                        </ul>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-amber-400">Hepatitis B PMTCT Protocol</h5>
+                            <p class="mt-1">If maternal HBsAg positive: Check HBV DNA load or HBeAg. If HBV DNA &gt;200,000 IU/mL or HBeAg(+), start <strong>Tenofovir (TDF 300mg PO daily)</strong> from 28 weeks gestation until delivery. Administer birth-dose HepB vaccine + HBIG to infant within 12-24 hours of birth.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 6,
+                title: "6. Ectopic Pregnancy Protocol",
+                category: "medical",
+                icon: "fa-stretcher",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Implantation of blastocyst outside the endometrial cavity (95% tubal ampulla).</p>
+                        
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Diagnostic Triad & Ultrasound Discriminatory Zone</h5>
+                            <ul class="list-disc pl-4 space-y-1 mt-1">
+                                <li><strong>Classic Triad:</strong> Amenorrhea + Abdominal pain + Vaginal spotting.</li>
+                                <li><strong>Discriminatory Zone:</strong> Serum beta-hCG level above which intrauterine gestational sac should be visible on US.
+                                    <br>- Transvaginal US (TVUS): <strong>1,500 - 2,000 mIU/mL</strong>
+                                    <br>- Transabdominal US (TAUS): <strong>6,000 - 6,500 mIU/mL</strong>
+                                </li>
+                                <li><strong>Serial beta-hCG:</strong> Normal early pregnancy doubles/rises &gt;66% in 48 hours. Suboptimal rise indicates abnormal/ectopic.</li>
+                                <li><strong>Culdocentesis:</strong> Non-clotting blood (&gt;5mL) confirms hemoperitoneum.</li>
+                            </ul>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Management Protocols</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-rose-950/60 border border-rose-800 rounded-xl">
+                                <h5 class="font-bold text-rose-400">Surgical (Ruptured / Unstable)</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li>Immediate fluid resuscitation (2 large bore IVs).</li>
+                                    <li>Emergency Laparotomy / Laparoscopy.</li>
+                                    <li><strong>Salpingectomy:</strong> Total removal of tube (preferred for severe damage/rupture).</li>
+                                    <li><strong>Salpingotomy:</strong> Preserves tube if unruptured & future fertility desired.</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-emerald-950/60 border border-emerald-800 rounded-xl">
+                                <h5 class="font-bold text-emerald-400">Medical Management (Methotrexate)</h5>
+                                <div class="font-semibold text-slate-300 mb-1">Strict Criteria: Hemodynamically stable, hCG &lt;5000 mIU/mL, No fetal cardiac activity, Mass &lt;3.5cm, No renal/hepatic disease.</div>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li><strong>Single Dose Protocol:</strong> Methotrexate <strong>50 mg/m² IM</strong> on Day 1.</li>
+                                    <li>Measure hCG on Day 1, Day 4, and Day 7.</li>
+                                    <li>Target: &gt;= 15% drop between Day 4 and Day 7. Repeat dose if &lt;15% drop.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 7,
+                title: "7. Molar Pregnancy (Hydatidiform Mole)",
+                category: "medical",
+                icon: "fa-cubes",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Gestational trophoblastic disease characterized by abnormal trophoblastic proliferation and vesicular swelling of chorionic villi.</p>
+                        
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Clinical Presentation & Diagnostics</h5>
+                            <ul class="list-disc pl-4 space-y-1 mt-1">
+                                <li>Vaginal bleeding with grape-like vesicles, hyperemesis gravidarum.</li>
+                                <li>Preeclampsia occurring before 20 weeks gestation.</li>
+                                <li>Fundal height disproportionately larger than gestational age.</li>
+                                <li><strong>Ultrasound Pattern:</strong> "Snowstorm" appearance or vesiculated mass; bilateral theca lutein cysts on ovaries.</li>
+                            </ul>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Treatment & Surveillance Protocol</h4>
+                        <div class="text-xs space-y-2">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-emerald-400">1. Evacuation:</strong> Suction Curettage in Operating Room under anesthesia. Infuse <strong>20 IU Oxytocin in 1L Normal Saline at 60 drops/min</strong> during evacuation to reduce hemorrhage. Send tissue for histopathology. Administer Anti-D if Rh negative.
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-amber-400">2. Follow-Up hCG Surveillance:</strong> Measure quantitative beta-hCG weekly until 3 consecutive negative results (&lt;5 mIU/mL), then monthly for 6 months.
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-rose-400">3. Strict Contraception:</strong> Reliable contraception (COCs, Implants) mandatory for 1 year to prevent pregnancy confusing hCG surveillance.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 8,
+                title: "8. Hyperemesis Gravidarum (HG)",
+                category: "medical",
+                icon: "fa-head-side-cough",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Severe, persistent nausea and vomiting starting in early pregnancy leading to weight loss &gt;5%, dehydration, ketonuria (&gt;=+2), and electrolyte derangements.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Outpatient Stepwise Anti-emetic Protocol</h4>
+                        <ol class="list-decimal pl-5 text-xs space-y-1.5">
+                            <li><strong>First-Line:</strong> Pyridoxine (Vit B6) 10-25 mg PO TID + Doxylamine 12.5 mg PO.</li>
+                            <li><strong>Second-Line:</strong> Add Promethazine 12.5-25 mg PO/IM Q4-6H OR Metoclopramide 5-10 mg IV/PO TID.</li>
+                            <li><strong>Third-Line:</strong> Ondansetron 4-8 mg IV/PO BID or TID.</li>
+                        </ol>
+
+                        <div class="p-3 bg-amber-950/40 border border-amber-600/40 rounded-xl text-xs">
+                            <h5 class="font-bold text-amber-400 flex items-center gap-1"><i class="fa-solid fa-triangle-exclamation"></i> Inpatient Resuscitation & Mandatory Thiamine Rule</h5>
+                            <p class="mt-1">• <strong>Fluid Regimen:</strong> Isotonic Saline or Ringer's Lactate (2-3 L in first 24h).</p>
+                            <p class="mt-1 font-bold text-rose-300">• CRITICAL THIAMINE RULE: Always give Thiamine (Vitamin B1) 100 mg IV BEFORE starting IV Dextrose fluids to prevent Wernicke's Encephalopathy!</p>
+                            <p class="mt-1">• <strong>Electrolyte Correction:</strong> Add Potassium Chloride (KCl) 20-40 mEq/L if hypokalemic. If severe (&lt;2.5 mEq/L): 20 mEq over 2-3 hours with ECG monitoring.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 9,
+                title: "9. Antepartum Hemorrhage (APH)",
+                category: "emergency",
+                icon: "fa-droplet-slash",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Vaginal bleeding occurring from 28+0 weeks gestation until delivery of the fetus.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Placental Abruption vs. Placenta Previa Differential</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Clinical Feature</th>
+                                        <th class="p-2 border border-slate-700">Placental Abruption</th>
+                                        <th class="p-2 border border-slate-700">Placenta Previa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Pain Character</td>
+                                        <td class="p-2 text-rose-300">Severe, continuous abdominal/back pain</td>
+                                        <td class="p-2 text-emerald-300">Painless vaginal bleeding</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Bleeding Color</td>
+                                        <td class="p-2">Dark red / concealed intra-uterine</td>
+                                        <td class="p-2">Bright red, external</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Uterine Tone</td>
+                                        <td class="p-2 text-rose-300">Tender, tense, rigid "board-like" uterus</td>
+                                        <td class="p-2">Soft, non-tender uterus</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Digital Vaginal Exam</td>
+                                        <td class="p-2">Perform cautiously</td>
+                                        <td class="p-2 text-rose-400 font-bold">STRICTLY CONTRAINDICATED (Double setup only)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Management</td>
+                                        <td class="p-2">Immediate delivery if fetal distress, IUFD, or term</td>
+                                        <td class="p-2">Expectant if &lt;37w & stable; Elective CS at 36-37w if major previa</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Adherent Placenta Spectrum (Accreta, Increta, Percreta)</h5>
+                            <p class="mt-1">High risk in women with prior CS + Placenta Previa. Plan elective CS-Hysterectomy at 34-36 weeks with senior surgical team and 4-6 units blood crossmatched. Do NOT attempt manual removal of placenta if accreta suspected.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 10,
+                title: "10. Multiple Pregnancy Protocol",
+                category: "anc",
+                icon: "fa-people-roof",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Chorionicity & Delivery Timing:</strong> Ultrasound in 1st trimester determines chorionicity (Twin peak / Lambda sign = Dichorionic; T-sign = Monochorionic).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Timing & Mode of Delivery Matrix</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-center">
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-rose-400">Monoamniotic Monochorionic (MCMA)</div>
+                                <div class="mt-1 text-slate-300">Deliver at <strong>32 - 34 weeks</strong></div>
+                                <div class="mt-2 text-rose-400 font-semibold">Elective CS Mandatory</div>
+                            </div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-amber-400">Diamniotic Monochorionic (MCDA)</div>
+                                <div class="mt-1 text-slate-300">Deliver at <strong>36 - 37 weeks</strong></div>
+                                <div class="mt-2 text-sky-400 font-semibold">Vaginal if Twin A Vertex</div>
+                            </div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-emerald-400">Diamniotic Dichorionic (DCDA)</div>
+                                <div class="mt-1 text-slate-300">Deliver at <strong>37 - 38 weeks</strong></div>
+                                <div class="mt-2 text-sky-400 font-semibold">Vaginal trial if Twin A Vertex</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs space-y-1">
+                            <h5 class="font-bold text-sky-400">Intrapartum Management of Twin B</h5>
+                            <p>• After birth of Twin A, clamp cord, check lie and FHR of Twin B immediately.</p>
+                            <p>• If longitudinal & vertex: Perform ARM, start Oxytocin if contractions fade. Target interval &lt;30 minutes.</p>
+                            <p>• If non-longitudinal: Perform Internal Podalic Version (IPV) + Total Breech Extraction if experienced clinician present.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 11,
+                title: "11. Prelabor Rupture of Membranes (PROM)",
+                category: "labor",
+                icon: "fa-water-ladder",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definitions:</strong> Rupture of membranes prior to onset of labor. Term PROM (&gt;=37w); Preterm PROM / PPROM (&lt;37w); Prolonged PROM (&gt;12h).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Diagnostic Confirmation & Strict Precautions</h4>
+                        <ul class="list-disc pl-5 text-xs space-y-1">
+                            <li><strong>Speculum Exam:</strong> Direct visualization of fluid pooling in posterior vagina.</li>
+                            <li><strong>Ferning Test:</strong> Microscopic arborization (fern pattern) of dried vaginal fluid.</li>
+                            <li><strong>Nitrazine Paper:</strong> Turns blue (pH &gt;6.0-6.5; alkaline amniotic fluid).</li>
+                            <li class="text-rose-400 font-bold">• AVOID DIGITAL VAGINAL EXAMINATIONS until active labor to prevent intra-amniotic infection!</li>
+                        </ul>
+
+                        <h4 class="font-bold text-sky-400 text-sm">PPROM (&lt;34 Weeks) Expectant Regimen</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400">1. Corticosteroid Therapy</h5>
+                                <div>Dexamethasone 6 mg IM Q12H for 4 doses OR Betamethasone 12 mg IM Q24H for 2 doses.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-sky-400">2. Latency Antibiotic Protocol</h5>
+                                <div><strong>Ampicillin 2g IV Q6H + Erythromycin 250mg PO Q6H for 48h</strong>, followed by Amoxicillin 500mg PO TID + Erythromycin 250mg PO QID for 5 days.</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-rose-950/50 border border-rose-800 rounded-xl text-xs">
+                            <h5 class="font-bold text-rose-400">Chorioamnionitis Triple Antibiotic Treatment</h5>
+                            <p class="mt-1">If maternal fever (&gt;38.0°C) + uterine tenderness + foul amniotic fluid + fetal tachycardia (&gt;160 bpm): Expedite immediate delivery regardless of gestational age. Administer: <strong>Ampicillin 2g IV Q6H + Gentamicin 5mg/kg IV Q24H + Metronidazole 500mg IV Q8H</strong>.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 12,
+                title: "12. Labor & Delivery Protocol",
+                category: "labor",
+                icon: "fa-baby",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Stages of Labor:</strong> Stage 1 (Latent &lt;5cm, Active &gt;=5cm); Stage 2 (Full dilation to birth); Stage 3 (Placental delivery).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">WHO Partograph Monitoring Parameters</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Parameter</th>
+                                        <th class="p-2 border border-slate-700">Frequency</th>
+                                        <th class="p-2 border border-slate-700">Normal Range / Standard</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Fetal Heart Rate (FHR)</td>
+                                        <td class="p-2">Every 30 mins (1st stage), Every 5 mins (2nd stage)</td>
+                                        <td class="p-2 text-emerald-400">110 - 160 beats/min</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Cervical Dilation</td>
+                                        <td class="p-2">Every 4 hours</td>
+                                        <td class="p-2">&gt;= 1 cm/hour rate in active phase</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Uterine Contractions</td>
+                                        <td class="p-2">Every 30 mins</td>
+                                        <td class="p-2">3 - 5 contractions in 10 minutes (each 40-50 secs)</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Maternal Pulse / BP</td>
+                                        <td class="p-2">Pulse Q30M; BP & Temp Q4H</td>
+                                        <td class="p-2">BP &lt;140/90 mmHg; Temp &lt;37.5°C</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Pharmacological Pain Relief</h5>
+                            <p class="mt-1">Pethidine 50-100 mg IM Q3-4H (avoid within 2-3 hours of expected delivery due to neonatal respiratory depression; ensure Naloxone 0.1 mg/kg available for newborn).</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 13,
+                title: "13. Active Management of 3rd Stage of Labor (AMTSL)",
+                category: "labor",
+                icon: "fa-shield-halved",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-emerald-950/60 border border-emerald-600 rounded-xl text-xs">
+                            <h4 class="font-bold text-emerald-400 text-sm">3 Core Steps of AMTSL (Must be applied to EVERY delivery)</h4>
+                            <ol class="list-decimal pl-5 space-y-2 mt-2">
+                                <li>
+                                    <strong>Uterotonic Administration within 1 Minute:</strong>
+                                    <br>• <strong>First-Line: Oxytocin 10 IU IM</strong> immediately after baby's birth (after ruling out additional fetus).
+                                    <br>• Alternatives if Oxytocin unavailable: Carbetocin 100 mcg IV/IM, Ergometrine 0.2 mg IM (CONTRAINDICATED in HTN/preeclampsia), or Misoprostol 400-600 mcg sublingual/oral.
+                                </li>
+                                <li>
+                                    <strong>Controlled Cord Traction (CCT):</strong> Perform CCT with counter-pressure on suprapubic region (pushing uterus up-and-back) during a uterine contraction.
+                                </li>
+                                <li>
+                                    <strong>Uterine Massage:</strong> Massage uterine fundus immediately following placenta delivery and verify tone every 15 minutes for the first 2 hours.
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 14,
+                title: "14. Essential Newborn Care & Resuscitation",
+                category: "labor",
+                icon: "fa-child-reaching",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>10 Steps of Essential Newborn Care:</strong> Dry & stimulate, Assess breathing, Cord care (4% Chlorhexidine daily x7d), Thermal protection (skin-to-skin), Early breastfeeding within 1h, Eye prophylaxis (Tetracycline 1%), Vitamin K1 (1mg &gt;=34w, 0.5mg &lt;34w IM), ID bands, Weight, Documentation.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Neonatal Resuscitation "Golden Minute" Algorithm</h4>
+                        <div class="p-4 bg-slate-900 border border-slate-700 rounded-xl text-xs space-y-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center font-bold">0-60s</div>
+                                <div>
+                                    <strong class="text-amber-400">Assess & Stimulate:</strong> Dry completely, clear airway if blocked, evaluate breathing. If apnoeic or gasping OR Heart Rate &lt;100 bpm -&gt; Proceed immediately to PPV.
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 border-t border-slate-800 pt-2">
+                                <div class="w-8 h-8 rounded-full bg-rose-600 text-white flex items-center justify-center font-bold">PPV</div>
+                                <div>
+                                    <strong class="text-rose-400">Positive Pressure Ventilation (Bag & Mask):</strong> Ventilate at 40-60 breaths/min with room air. Reassess HR & chest rise after 30 seconds.
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 border-t border-slate-800 pt-2">
+                                <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold">3:1</div>
+                                <div>
+                                    <strong class="text-purple-300">Chest Compressions (If HR &lt;60 bpm despite effective PPV):</strong> Coordinate compressions with PPV at 3:1 ratio (90 compressions + 30 breaths = 120 events/min). Increase O2 to 100%.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 15,
+                title: "15. Postpartum & Postnatal Care (PPC/PNC)",
+                category: "anc",
+                icon: "fa-user-nurse",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>PNC Contact Schedule:</strong> Immediate (First 24 hours), Early (Day 3 and Day 7-14), Late (6 weeks).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Management of Common Puerperal Infections</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Condition</th>
+                                        <th class="p-2 border border-slate-700">Clinical Presentation</th>
+                                        <th class="p-2 border border-slate-700">Recommended Regimen</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Endometritis</td>
+                                        <td class="p-2">Fever, purulent foul lochia, tender uterus</td>
+                                        <td class="p-2 text-emerald-400">Clindamycin 600mg IV Q8H + Gentamicin 5mg/kg IV Q24H</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Mastitis</td>
+                                        <td class="p-2">Fever, localized erythema, wedge-shaped breast pain</td>
+                                        <td class="p-2">Cloxacillin 500mg PO QID for 10 days + continue breastfeeding</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Breast Abscess</td>
+                                        <td class="p-2">Fluctuant mass in breast, severe localized pain</td>
+                                        <td class="p-2">Surgical Incision & Drainage (radial) + Antibiotics</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Wound Dehiscence / Fasciitis</td>
+                                        <td class="p-2">CS or episiotomy incision breakdown/necrosis</td>
+                                        <td class="p-2 text-rose-400">Penicillin G + Gentamicin + Metronidazole + Radical Surgical Debridement</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 16,
+                title: "16. Abnormal Labor & Dystocia Protocol",
+                category: "labor",
+                icon: "fa-clock-rotate-left",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Classification of Labor Dystocia:</strong> Categorized based on cervical dilatation rate and descent progress on partograph.</p>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Abnormality Type</th>
+                                        <th class="p-2 border border-slate-700">Nulliparous Cutoff</th>
+                                        <th class="p-2 border border-slate-700">Multiparous Cutoff</th>
+                                        <th class="p-2 border border-slate-700">Clinical Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Prolonged Latent Phase</td>
+                                        <td class="p-2">&gt; 20 hours</td>
+                                        <td class="p-2">&gt; 14 hours</td>
+                                        <td class="p-2">Therapeutic rest (Morphine/Pethidine) or Oxytocin induction</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Protracted Active Dilation</td>
+                                        <td class="p-2">&lt; 1.2 cm/hour</td>
+                                        <td class="p-2">&lt; 1.5 cm/hour</td>
+                                        <td class="p-2">ARM + Oxytocin augmentation if hypocontractile</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Secondary Arrest of Dilation</td>
+                                        <td class="p-2">&gt; 2 hours no change</td>
+                                        <td class="p-2">&gt; 2 hours no change</td>
+                                        <td class="p-2 text-rose-400">Rule out CPD; Emergency CS if CPD confirmed</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Prolonged 2nd Stage</td>
+                                        <td class="p-2">&gt; 3 hours (no epidural)</td>
+                                        <td class="p-2">&gt; 2 hours (no epidural)</td>
+                                        <td class="p-2">Operative Vaginal Delivery (Vacuum/Forceps) or CS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 17,
+                title: "17. Preterm Labor Management",
+                category: "labor",
+                icon: "fa-stopwatch",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Regular contractions (4 in 20 min or 8 in 60 min) with progressive cervical changes between 20+0 and 36+6 weeks gestation.</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Preterm Labor Clinical Bundle Protocols</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400">1. Corticosteroid Protocol</h5>
+                                <div class="mt-1">For fetal lung maturity (&lt;34w):<br>• <strong>Dexamethasone 6 mg IM Q12H x 4 doses</strong> OR Betamethasone 12 mg IM Q24H x 2 doses.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-sky-400">2. Tocolytic Therapy</h5>
+                                <div class="mt-1">To delay delivery 48h for steroids:<br>• <strong>Nifedipine:</strong> 20 mg PO loading, then 10-20 mg Q4-8H (Max 48h). Avoid Salbutamol if cardiac disease.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-purple-400">3. Neuroprotection (&lt;32w)</h5>
+                                <div class="mt-1">• <strong>MgSO4 IV Regimen:</strong> 4g IV loading over 15-20 min, followed by 1g/hr IV infusion for 24 hours to prevent Cerebral Palsy.</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-amber-400">Group B Strep (GBS) Intrapartum Prophylaxis</h5>
+                            <p class="mt-1">Administer <strong>Ampicillin 2g IV loading, then 1g IV Q4H</strong> during active preterm labor until delivery.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 18,
+                title: "18. Umbilical Cord Prolapse",
+                category: "emergency",
+                icon: "fa-life-ring",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-rose-950/80 border border-rose-600 rounded-xl text-xs">
+                            <h4 class="font-bold text-rose-400 text-sm flex items-center gap-2"><i class="fa-solid fa-triangle-exclamation"></i> Emergency Cord Prolapse Protocol (STAT Action)</h4>
+                            <ol class="list-decimal pl-5 space-y-2 mt-2">
+                                <li><strong>Call for Emergency Help:</strong> Alert OR team and senior obstetrician immediately.</li>
+                                <li><strong>Manual Elevation of Presenting Part:</strong> Insert gloved hand into vagina and push the fetal presenting part UP and off the umbilical cord continuously. Do NOT attempt to push cord back into uterus.</li>
+                                <li><strong>Maternal Posture:</strong> Position woman in <strong>Steep Trendelenburg or Knee-Chest position</strong>.</li>
+                                <li><strong>Bladder Filling (Viale Maneuver):</strong> Instill 500-700 mL Normal Saline via Foley catheter into bladder to lift fetal head off cord during transfer.</li>
+                                <li><strong>Tocolysis:</strong> Administer Nifedipine 10mg PO or Terbutaline 250 mcg SC to reduce uterine contractions.</li>
+                                <li><strong>Delivery:</strong> Emergency Category 1 CS within 30 mins (or immediate vacuum if 2nd stage & fully dilated).</li>
+                            </ol>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 19,
+                title: "19. Malpositions & Malpresentations",
+                category: "labor",
+                icon: "fa-arrows-rotate",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definitions:</strong> Malposition (e.g., Occiput Posterior/Transverse); Malpresentation (Face, Brow, Shoulder, Compound).</p>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Presentation / Position</th>
+                                        <th class="p-2 border border-slate-700">Diagnostic Landmark</th>
+                                        <th class="p-2 border border-slate-700">Management & Mode of Delivery</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Face (Mento-Anterior)</td>
+                                        <td class="p-2">Mentum (chin) anterior</td>
+                                        <td class="p-2 text-emerald-400">Vaginal delivery possible. Vacuum CONTRAINDICATED.</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-rose-300">Face (Mento-Posterior)</td>
+                                        <td class="p-2">Mentum (chin) posterior</td>
+                                        <td class="p-2 text-rose-400 font-bold">Mandatory CS! (Neck cannot hyperextend to fit pelvis)</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold text-rose-300">Brow Presentation</td>
+                                        <td class="p-2">Frontal suture & orbital ridges felt</td>
+                                        <td class="p-2 text-rose-400">Persistent brow -&gt; Deliver by CS (or Craniotomy if dead).</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">Transverse Lie / Shoulder</td>
+                                        <td class="p-2">Acromion process felt, arm prolapse</td>
+                                        <td class="p-2">ECV if &gt;36w intact; Elective CS at term or emergency CS in labor.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 20,
+                title: "20. Breech Presentation Protocol",
+                category: "labor",
+                icon: "fa-person-walking",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Types:</strong> Frank Breech (thighs flexed, knees extended), Complete (thighs & knees flexed), Footling (one/both feet below buttocks).</p>
+                        
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">External Cephalic Version (ECV)</h5>
+                            <p class="mt-1">Offer ECV to uncomplicated singleton breech pregnancies at 36-37 weeks. Contraindications: Prior CS scar, APH, oligohydramnios, severe preeclampsia, fetal compromise.</p>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Assisted Vaginal Breech Delivery Maneuvers</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-emerald-400">1. Legs (Pinard's)</div>
+                                <div class="mt-1">Press popliteal fossa to flex knee and sweep leg out across chest.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-sky-400">2. Arms (Lovset's)</div>
+                                <div class="mt-1">Rotate baby 180 degrees while applying downward traction to release shoulders.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl">
+                                <div class="font-bold text-indigo-400">3. Head (MSV Maneuver)</div>
+                                <div class="mt-1">Mauriceau-Smellie-Veit maneuver: Index/middle finger on maxilla to flex head while assistant applies suprapubic pressure.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 21,
+                title: "21. Cephalopelvic Disproportion (CPD)",
+                category: "labor",
+                icon: "fa-weight-hanging",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Anatomical mismatch between fetal head size and maternal pelvic dimensions preventing progression through birth canal.</p>
+                        
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs space-y-2">
+                            <h5 class="font-bold text-amber-400">Clinical Markers & Diagnosis</h5>
+                            <ul class="list-disc pl-4 space-y-1">
+                                <li><strong>Severe Molding (+3):</strong> Overlapping parietal bones that cannot be separated.</li>
+                                <li><strong>Severe Caput Succedaneum:</strong> Large edema obscuring bony landmarks.</li>
+                                <li><strong>Pelvimetry Indices:</strong> Diagonal conjugate &lt;11.5 cm (True conjugate &lt;10 cm); outlet intertuberous diameter &lt;8 cm.</li>
+                                <li><strong>Estimated Fetal Weight Cutoffs:</strong> Suspect macrosomia and CPD if EFW &gt;=4.5 kg (&gt;=4.0 kg in diabetic mothers). Plan elective CS.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 22,
+                title: "22. Obstructed Labor & Uterine Rupture",
+                category: "emergency",
+                icon: "fa-heart-crack",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-rose-950/80 border border-rose-600 rounded-xl text-xs space-y-2">
+                            <h4 class="font-bold text-rose-400 text-sm">Obstructed Labor Clinical Signs</h4>
+                            <p>• Bandl's Retraction Ring (visible abdominal groove between upper and lower uterine segment).</p>
+                            <p>• Severe uterine tenderness, continuous pain, maternal exhaustion, ketoacidosis, hematuria.</p>
+                            <p>• <strong>Management:</strong> Rapid resuscitation with IV crystalloids + IV Triple Antibiotics + Emergency Laparotomy/CS (if fetus alive) OR Craniotomy (if fetus dead and cervical dilation complete).</p>
+                        </div>
+
+                        <div class="p-3 bg-rose-950/80 border border-rose-600 rounded-xl text-xs space-y-2">
+                            <h4 class="font-bold text-rose-400 text-sm">Uterine Rupture Protocol</h4>
+                            <p>• <strong>Classic Signs:</strong> Sudden sharp tearing abdominal pain, cessation of contractions, recession of presenting part, easily palpable fetal parts in abdomen, maternal hypovolemic shock, fetal bradycardia/death.</p>
+                            <p>• <strong>Emergency Surgical Action:</strong> Immediate Laparotomy with crossmatched blood ready. Perform <strong>Uterine Repair</strong> (if clean tear & future fertility desired) OR <strong>Subtotal/Total Hysterectomy</strong> (if extensive lateral tear/uncontrolled bleeding).</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 23,
+                title: "23. Postpartum Hemorrhage (PPH) Emergency Protocol",
+                category: "emergency",
+                icon: "fa-droplet",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Cumulative blood loss &gt;=500 mL following vaginal delivery or &gt;=1000 mL following Cesarean section, or bleeding with signs of hypovolemia within 24h (Primary) or up to 6 weeks (Secondary).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">The 4 Ts Etiology & Immediate Action</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs text-center">
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-rose-400">Tone (70%)</div>
+                                <div>Uterine Atony</div>
+                                <div class="text-[10px] text-slate-400">Uterotonics & Massage</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-amber-400">Trauma (20%)</div>
+                                <div>Cervical/Vaginal Laceration</div>
+                                <div class="text-[10px] text-slate-400">Inspection & Repair</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Tissue (10%)</div>
+                                <div>Retained Placenta/Clots</div>
+                                <div class="text-[10px] text-slate-400">Manual Removal</div>
+                            </div>
+                            <div class="p-2 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-purple-400">Thrombin (&lt;1%)</div>
+                                <div>Coagulopathy / DIC</div>
+                                <div class="text-[10px] text-slate-400">FFP & Platelets</div>
+                            </div>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Sequential Pharmacological & Surgical Escalation</h4>
+                        <div class="text-xs space-y-2">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-emerald-400">1. Resuscitation & First-Line Drugs:</strong> Rapid IV Crystalloids (2 large bore IVs), O2 face mask.<br>
+                                • <strong>Oxytocin:</strong> 20-40 IU in 1L NS/RL at 60 drops/min.<br>
+                                • <strong>Ergometrine:</strong> 0.2 mg IM (Avoid in HTN).<br>
+                                • <strong>Misoprostol:</strong> 800 mcg Sublingual / Rectal.<br>
+                                • <strong>Tranexamic Acid (TXA):</strong> <strong>1g IV over 10 mins</strong> (Give within 3h of birth; repeat 2nd dose after 30 mins if bleeding continues).
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-amber-400">2. Tamponade & Compressional Measures:</strong> Bimanual uterine compression, External Abdominal Aortic Compression, Non-pneumatic Anti-Shock Garment (NASG), <strong>Uterine Balloon Tamponade (UBT / Condom Catheter)</strong> inflated with 300-500 mL warm NS.
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <strong class="text-rose-400">3. Surgical Intervention:</strong> Laparotomy -&gt; B-Lynch Compression Suture -&gt; Uterine / Internal Iliac Artery Ligation -&gt; Subtotal / Total Emergency Hysterectomy.
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 24,
+                title: "24. Post-Term Pregnancy Protocol",
+                category: "anc",
+                icon: "fa-calendar-xmark",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Pregnancy extending to or beyond 42+0 completed weeks (294 days) from reliable LNMP.</p>
+                        
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs space-y-1">
+                            <h5 class="font-bold text-sky-400">Fetal Surveillance & Induction Rule</h5>
+                            <p>• Starting at 41+0 weeks: Perform bi-weekly Non-Stress Test (NST) and Biophysical Profile (BPP) / Amniotic Fluid Index (AFI).</p>
+                            <p>• <strong>Induction Mandate:</strong> Offer labor induction between <strong>41+0 and 42+0 weeks</strong> to decrease perinatal mortality and meconium aspiration syndrome.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 25,
+                title: "25. Induction & Augmentation of Labor",
+                category: "labor",
+                icon: "fa-syringe",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sky-400 text-sm">Modified Bishop Scoring Table</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700 text-center">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-1.5 border border-slate-700">Parameter</th>
+                                        <th class="p-1.5 border border-slate-700">0 Points</th>
+                                        <th class="p-1.5 border border-slate-700">1 Point</th>
+                                        <th class="p-1.5 border border-slate-700">2 Points</th>
+                                        <th class="p-1.5 border border-slate-700">3 Points</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-1.5 font-semibold text-left">Dilation (cm)</td>
+                                        <td>Closed</td>
+                                        <td>1 - 2</td>
+                                        <td>3 - 4</td>
+                                        <td>&gt;= 5</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-1.5 font-semibold text-left">Effacement (%)</td>
+                                        <td>0 - 30%</td>
+                                        <td>40 - 50%</td>
+                                        <td>60 - 70%</td>
+                                        <td>&gt;= 80%</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-1.5 font-semibold text-left">Station</td>
+                                        <td>-3</td>
+                                        <td>-2</td>
+                                        <td>-1, 0</td>
+                                        <td>+1, +2</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-1.5 font-semibold text-left">Consistency</td>
+                                        <td>Firm</td>
+                                        <td>Medium</td>
+                                        <td>Soft</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-1.5 font-semibold text-left">Position</td>
+                                        <td>Posterior</td>
+                                        <td>Mid-position</td>
+                                        <td>Anterior</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-amber-400">Bishop Score &lt;= 5 (Unfavorable Cervix)</h5>
+                                <div><strong>Cervical Ripening Required:</strong><br>• <strong>Misoprostol:</strong> 25 mcg PO Q3H OR 25 mcg PV Q6H (Max 6 doses).<br>• <strong>Foley Catheter:</strong> 30-50 mL inflated in internal os for 12-24h.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400">Bishop Score &gt;= 6 (Favorable Cervix)</h5>
+                                <div><strong>Direct Induction:</strong><br>• Amniotomy (ARM) + <strong>Oxytocin Infusion Protocol:</strong> 2 IU in 1000mL NS (2 mIU/mL) starting at 20 drops/min (2 mIU/min), doubling every 30 mins until 3-4 contractions per 10 mins.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 26,
+                title: "26. Operative Vaginal Delivery Protocol",
+                category: "labor",
+                icon: "fa-hands-holding-child",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Prerequisites for Vacuum / Forceps:</strong> Full cervical dilation (10cm), ruptured membranes, engaged head (station &lt;=0), exact vertex presentation known, pelvis adequate, empty bladder, informed consent.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-sky-400">Vacuum Extraction Rules</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li>Place cup over flexion point (3cm anterior to posterior fontanelle).</li>
+                                    <li>Raise suction pressure to <strong>0.8 kg/cm² (600 mmHg)</strong>.</li>
+                                    <li><strong>Rule of 3 Abort Criteria:</strong> Maximum 3 contractions / 3 pulls, max 30 minutes total time, or MAX 2 cup pop-offs -&gt; Abandon and proceed to emergency CS!</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-purple-400">Destructive Procedures (Dead Fetus Only)</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li><strong>Craniotomy:</strong> Perforation of fetal skull and evacuation of brain tissue to collapse head for vaginal birth of dead fetus.</li>
+                                    <li><strong>Craniocentesis:</strong> Aspiration of CSF for fetal hydrocephalus.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 27,
+                title: "27. Cesarean Section & TOLAC Protocol",
+                category: "labor",
+                icon: "fa-notes-medical",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Surgical Antibiotic Prophylaxis</h5>
+                            <p class="mt-1">Administer single dose IV antibiotic 15-60 minutes BEFORE skin incision: <strong>Ampicillin 2g IV OR Cefazolin 1g IV</strong> (2g if weight &gt;120 kg).</p>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Trial of Labor After CS (TOLAC) Eligibility</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-emerald-950/50 border border-emerald-800 rounded-xl">
+                                <h5 class="font-bold text-emerald-400">Favorable Candidates for TOLAC</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li>One prior low transverse uterine incision.</li>
+                                    <li>Clinically adequate pelvis; singleton vertex presentation.</li>
+                                    <li>Spontaneous labor onset (TOLAC success rate ~72-75%).</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-rose-950/50 border border-rose-800 rounded-xl">
+                                <h5 class="font-bold text-rose-400">Strict Contraindications to TOLAC</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li>Prior classical, vertical, or T-shaped uterine incision.</li>
+                                    <li>Prior uterine rupture or extensive transmural myomectomy.</li>
+                                    <li>Contracted pelvis or multiple prior CS (&gt;=2).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 28,
+                title: "28. Postpartum Family Planning (PPFP)",
+                category: "anc",
+                icon: "fa-calendar-check",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sky-400 text-sm">Postpartum Contraceptive Eligibility Timeline</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs border-collapse border border-slate-700">
+                                <thead>
+                                    <tr class="bg-slate-800 text-sky-300">
+                                        <th class="p-2 border border-slate-700">Timing</th>
+                                        <th class="p-2 border border-slate-700">Breastfeeding Mother Options</th>
+                                        <th class="p-2 border border-slate-700">Non-Breastfeeding Mother Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">Immediate Post-Placental (&lt;48h)</td>
+                                        <td class="p-2">PPIUCD (Copper T), Implants (Jadelle/Implanon), Tubal Ligation</td>
+                                        <td class="p-2">PPIUCD, Implants, Tubal Ligation</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800">
+                                        <td class="p-2 font-semibold">48h to 4 Weeks</td>
+                                        <td class="p-2 text-amber-300">Avoid IUCD insertion (infection/perforation risk). LAM active.</td>
+                                        <td class="p-2 text-amber-300">Avoid IUCD. Progestin-only methods ok.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-2 font-semibold">&gt;= 6 Weeks</td>
+                                        <td class="p-2 text-emerald-400">All methods (IUCD, Implants, DMPA, POPs). COCs can be started.</td>
+                                        <td class="p-2 text-emerald-400">All methods including COCs.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 29,
+                title: "29. Comprehensive Abortion Care (CAC)",
+                category: "medical",
+                icon: "fa-heart-crack",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Definition:</strong> Management of spontaneous abortion, post-abortion care (PAC), and safe termination of pregnancy within national legal frameworks (&lt;28 weeks).</p>
+                        
+                        <h4 class="font-bold text-sky-400 text-sm">Medical Abortion Dosages</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-emerald-400">First Trimester (&lt;=12 Weeks)</h5>
+                                <div class="mt-1"><strong>Mifepristone 200 mg PO</strong> single dose, followed 24-48 hours later by <strong>Misoprostol 800 mcg Sublingual / Vaginal / Buccal</strong>.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-sky-400">Second Trimester (13-24 Weeks)</h5>
+                                <div class="mt-1"><strong>Mifepristone 200 mg PO</strong>, followed 12-24 hours later by <strong>Misoprostol 400 mcg PO/SL every 3 hours</strong> (Max 5 doses).</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-amber-400">Surgical Abortion (MVA) & Antibiotic Prophylaxis</h5>
+                            <p class="mt-1">Manual Vacuum Aspiration (MVA) for pregnancies &lt;=12 weeks using paracervical block (Lidocaine 1%). Administer prophylaxis: <strong>Doxycycline 200 mg PO single dose</strong> 1 hour before procedure. Administer Anti-D immunoglobulin (50 mcg in 1st trimester; 300 mcg in 2nd trimester) if Rh negative.</p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 30,
+                title: "30. HIV in Pregnancy & PMTCT Protocol",
+                category: "medical",
+                icon: "fa-ribbon",
+                content: `
+                    <div class="space-y-4">
+                        <div class="p-3 bg-emerald-950/60 border border-emerald-600 rounded-xl text-xs">
+                            <h4 class="font-bold text-emerald-400 text-sm">Universal Maternal HAART Regimen</h4>
+                            <p class="mt-1">Initiate universal lifelong antiretroviral therapy (ART) immediately for ALL pregnant and breastfeeding women regardless of CD4 count or clinical stage:</p>
+                            <p class="mt-1 font-bold text-sky-300">TDF (Tenofovir 300mg) + 3TC (Lamivudine 300mg) + DTG (Dolutegravir 50mg) PO daily single tablet.</p>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Mode of Delivery & Infant Post-Natal Prophylaxis (e-PNP)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-sky-400">Viral Load & Mode of Delivery</h5>
+                                <div>• <strong>Viral Load &gt;1000 copies/mL at 36w:</strong> Elective CS at 38 weeks.<br>• <strong>Viral Load &lt;=1000 copies/mL:</strong> Vaginal delivery recommended. Avoid routine episiotomy and scalp electrodes.</div>
+                            </div>
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-purple-400">Infant ARV Prophylaxis Schedule</h5>
+                                <div>• <strong>Low Risk:</strong> Nevirapine (NVP) daily for 6 weeks.<br>• <strong>High Risk (Mother on ART &lt;4w or high VL):</strong> NVP + AZT (Zidovudine) daily for 6 weeks, then NVP for additional 6 weeks.<br>• DNA/PCR early infant diagnosis at 6 weeks.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 31,
+                title: "31. Hypertensive Disorders in Pregnancy (HDP)",
+                category: "emergency",
+                icon: "fa-heart-pulse",
+                content: `
+                    <div class="space-y-4">
+                        <p class="text-sm"><strong>Classifications:</strong> Gestational HTN, Preeclampsia (PE), Preeclampsia with Severe Features, Eclampsia, Chronic HTN, Superimposed PE.</p>
+                        
+                        <div class="p-3 bg-rose-950/60 border border-rose-800 rounded-xl text-xs space-y-1">
+                            <h5 class="font-bold text-rose-400">Criteria for Severe Features in Preeclampsia</h5>
+                            <p>Systolic BP &gt;=160 mmHg or Diastolic &gt;=110 mmHg | Thrombocytopenia (&lt;100,000/mcL) | Impaired liver function (AST/ALT 2x normal) | Progressive renal insufficiency (Creatinine &gt;1.1 mg/dL) | Pulmonary Edema | New-onset cerebral or visual disturbances.</p>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Eclampsia & Seizure Prophylaxis: MgSO4 Regimen</h4>
+                        <div class="p-3 bg-slate-900/80 border border-slate-700 rounded-xl text-xs space-y-2">
+                            <strong class="text-emerald-400">Full Zuspan Protocol:</strong>
+                            <div>• <strong>IV Loading:</strong> 4g IV as 20% solution (20 mL) over 5-10 minutes.</div>
+                            <div>• <strong>IM Loading:</strong> 10g IM as 50% solution (5 mL in each buttock with 1 mL 2% Lidocaine).</div>
+                            <div>• <strong>IM Maintenance:</strong> 5g IM (50% solution) Q4H in alternate buttocks for 24 hours post-delivery or post-last seizure.</div>
+                            <div class="text-amber-400 font-semibold">• MgSO4 Antidote: Calcium Gluconate 1g IV (10 mL of 10% solution) over 3 minutes for respiratory depression or toxicity.</div>
+                        </div>
+
+                        <h4 class="font-bold text-sky-400 text-sm">Acute Anti-Hypertensive Dosing</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs">
+                            <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg">
+                                <div class="font-bold text-sky-400">Hydralazine</div>
+                                <div>5 mg IV slow bolus. Repeat 5-10 mg IV every 20 mins (Max 20 mg).</div>
+                            </div>
+                            <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg">
+                                <div class="font-bold text-emerald-400">Labetalol</div>
+                                <div>20 mg IV bolus. Double dose to 40 mg then 80 mg Q10M (Max 300 mg).</div>
+                            </div>
+                            <div class="p-2.5 bg-slate-900 border border-slate-800 rounded-lg">
+                                <div class="font-bold text-amber-400">Nifedipine</div>
+                                <div>10 mg PO immediate release. Repeat 10-20 mg PO after 30 mins if needed.</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 32,
+                title: "32. Diabetes Mellitus in Pregnancy",
+                category: "medical",
+                icon: "fa-vial-circle-check",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sky-400 text-sm">75g OGTT Diagnostic Thresholds for GDM (24-28 Weeks)</h4>
+                        <div class="grid grid-cols-3 gap-2 text-xs text-center">
+                            <div class="p-2.5 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">Fasting</div>
+                                <div class="text-emerald-400 font-bold mt-1">&gt;= 92 mg/dL</div>
+                            </div>
+                            <div class="p-2.5 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">1-Hour Post 75g</div>
+                                <div class="text-emerald-400 font-bold mt-1">&gt;= 180 mg/dL</div>
+                            </div>
+                            <div class="p-2.5 bg-slate-900 border border-slate-700 rounded-lg">
+                                <div class="font-bold text-sky-400">2-Hour Post 75g</div>
+                                <div class="text-emerald-400 font-bold mt-1">&gt;= 153 mg/dL</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-emerald-400">Glycemic Targets during Pregnancy</h5>
+                            <p class="mt-1">• Fasting Blood Glucose: <strong>&lt; 95 mg/dL (5.3 mmol/L)</strong></p>
+                            <p>• 1-Hour Postprandial: <strong>&lt; 140 mg/dL (7.8 mmol/L)</strong></p>
+                            <p>• 2-Hour Postprandial: <strong>&lt; 120 mg/dL (6.7 mmol/L)</strong></p>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 33,
+                title: "33. Malaria in Pregnancy Protocol",
+                category: "medical",
+                icon: "fa-mosquito",
+                content: `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sky-400 text-sm">Treatment Regimens for Uncomplicated & Severe Malaria</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            <div class="p-3 bg-slate-900/80 rounded-xl border border-slate-800">
+                                <h5 class="font-bold text-amber-400">Uncomplicated Malaria Treatment</h5>
+                                <ul class="list-disc pl-4 space-y-1 mt-1">
+                                    <li><strong>1st Trimester:</strong> Oral Quinine (10 mg/kg TID for 7 days) + Clindamycin (450 mg PO TID for 7 days).</li>
+                                    <li><strong>2nd & 3rd Trimester:</strong> Artemether-Lumefantrine (AL) 4-tablet dose regimen or ASAQ.</li>
+                                </ul>
+                            </div>
+                            <div class="p-3 bg-rose-950/60 border border-rose-800 rounded-xl">
+                                <h5 class="font-bold text-rose-400">Severe Malaria (All Trimesters)</h5>
+                                <div class="mt-1">First-Line: <strong>IV Artesunate 2.4 mg/kg IV at 0, 12, and 24 hours</strong>, then once daily until oral therapy tolerated. Switch to full course oral AL. Monitor for severe hypoglycemia!</div>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-xs">
+                            <h5 class="font-bold text-sky-400">Intermittent Preventive Treatment (IPTp-SP)</h5>
+                            <p class="mt-1">In endemic areas, administer Sulfadoxine-Pyrimethamine (SP) 3 tablets single dose at each ANC contact starting at 13+0 weeks (2nd trimester) spaced at least 1 month apart.</p>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        // LOCALSTORAGE FAVORITES MANAGER
+        let favorites = JSON.parse(localStorage.getItem('eth_ob_favs') || '[]');
+
+        function toggleFavorite(id, event) {
+            event.stopPropagation();
+            if (favorites.includes(id)) {
+                favorites = favorites.filter(favId => favId !== id);
+            } else {
+                favorites.push(id);
+            }
+            localStorage.setItem('eth_ob_favs', JSON.stringify(favorites));
+            
+            const currentCat = document.querySelector('.toc-filter-btn.bg-sky-600').getAttribute('data-category');
+            renderProtocols(currentCat, document.getElementById('header-search-input').value);
+        }
+
+        // LIVE REAL-TIME SEARCH ENGINE & MATCH CONTROLLER
+        let currentMatches = [];
+        let activeMatchIdx = -1;
+
+        function renderProtocols(filterCategory = 'all', searchQuery = '') {
+            const protocolContainer = document.getElementById('protocol-content');
+            const tocTree = document.getElementById('toc-tree');
+            const searchControls = document.getElementById('header-search-controls');
+            const matchCounter = document.getElementById('match-counter');
+
+            protocolContainer.innerHTML = '';
+            tocTree.innerHTML = '';
+            currentMatches = [];
+            activeMatchIdx = -1;
+
+            const terms = searchQuery.trim().toLowerCase().split(/\s+/).filter(t => t.length > 0);
+
+            protocolData.forEach(item => {
+                // Category Filtering
+                if (filterCategory === 'favorites' && !favorites.includes(item.id)) return;
+                if (filterCategory !== 'all' && filterCategory !== 'favorites' && item.category !== filterCategory) return;
+
+                // Live Search Text Matching
+                const fullText = `${item.title} ${item.content}`.toLowerCase();
+                const matchesAllTerms = terms.every(term => fullText.includes(term));
+
+                if (terms.length > 0 && !matchesAllTerms) return;
+
+                // Render Sidebar Navigation Link
+                const isFav = favorites.includes(item.id);
+                const tocItem = document.createElement('a');
+                tocItem.href = `#module-${item.id}`;
+                tocItem.className = `block p-2 rounded-lg text-slate-300 light:text-slate-700 hover:bg-slate-800 light:hover:bg-slate-200 hover:text-sky-400 transition flex items-center justify-between text-xs truncate`;
+                tocItem.innerHTML = `
+                    <span class="truncate flex items-center gap-2">
+                        <i class="fa-solid ${item.icon} text-sky-400 w-4 text-center"></i>
+                        <span class="truncate">${item.title}</span>
+                    </span>
+                    <button onclick="toggleFavorite(${item.id}, event)" class="p-1 text-slate-500 hover:text-amber-400">
+                        <i class="fa-${isFav ? 'solid text-amber-400' : 'regular'} fa-star"></i>
+                    </button>
+                `;
+                tocItem.onclick = () => {
+                    if (window.innerWidth < 1024) document.getElementById('sidebar').classList.add('-translate-x-full');
+                };
+                tocTree.appendChild(tocItem);
+
+                // Build Section Component with Highlighted Text
+                const sectionCard = document.createElement('section');
+                sectionCard.id = `module-${item.id}`;
+                sectionCard.className = `glass-card p-5 sm:p-7 rounded-2xl border border-slate-800 light:border-slate-300 relative shadow-3d-card scroll-mt-20`;
+                
+                let renderedContent = item.content;
+
+                // Instant Highlight Injection
+                if (terms.length > 0) {
+                    terms.forEach(term => {
+                        const regex = new RegExp(`(${term.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&')})`, 'gi');
+                        renderedContent = renderedContent.replace(regex, `<mark class="search-highlight">$1</mark>`);
+                    });
+                }
+
+                sectionCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-800 light:border-slate-200 pb-3 mb-4">
+                        <h3 class="text-lg sm:text-xl font-bold text-sky-400 light:text-sky-700 flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center text-sm border border-sky-500/20">
+                                <i class="fa-solid ${item.icon}"></i>
+                            </div>
+                            ${item.title}
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <button onclick="toggleFavorite(${item.id}, event)" class="px-2.5 py-1 rounded-lg bg-slate-800 light:bg-slate-200 text-amber-400 text-xs font-semibold hover:bg-slate-700 transition">
+                                <i class="fa-${isFav ? 'solid' : 'regular'} fa-star mr-1"></i> ${isFav ? 'Saved' : 'Save'}
+                            </button>
+                            <span class="text-[10px] font-semibold uppercase px-2 py-1 rounded bg-slate-800 light:bg-slate-200 text-slate-400">
+                                Module ${item.id}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-slate-200 light:text-slate-800">
+                        ${renderedContent}
+                    </div>
+                `;
+
+                protocolContainer.appendChild(sectionCard);
+            });
+
+            // Calculate Match Elements & Next/Previous Jump
+            if (terms.length > 0) {
+                currentMatches = Array.from(document.querySelectorAll('mark.search-highlight'));
+                searchControls.classList.remove('hidden');
+                if (currentMatches.length > 0) {
+                    activeMatchIdx = 0;
+                    updateActiveMatch();
+                } else {
+                    matchCounter.textContent = `0/0`;
+                }
+            } else {
+                searchControls.classList.add('hidden');
+            }
+        }
+
+        function updateActiveMatch() {
+            currentMatches.forEach((matchEl, idx) => {
+                if (idx === activeMatchIdx) {
+                    matchEl.classList.add('active-match');
+                    matchEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    matchEl.classList.remove('active-match');
+                }
+            });
+            document.getElementById('match-counter').textContent = `${activeMatchIdx + 1}/${currentMatches.length}`;
+        }
+
+        // INITIALIZE APPLICATION
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('header-search-input');
+            const clearSearchBtn = document.getElementById('clear-header-search');
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+            const progressBar = document.getElementById('progress-bar');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // Initial Protocol Render
+            renderProtocols();
+
+            // Real-Time Search Event Listener (Fires Instantly On Keyup/Input)
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value;
+                clearSearchBtn.classList.toggle('hidden', !query);
+                const currentCat = document.querySelector('.toc-filter-btn.bg-sky-600').getAttribute('data-category');
+                renderProtocols(currentCat, query);
+            });
+
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                clearSearchBtn.classList.add('hidden');
+                const currentCat = document.querySelector('.toc-filter-btn.bg-sky-600').getAttribute('data-category');
+                renderProtocols(currentCat, '');
+            });
+
+            // Match Controls Navigation
+            document.getElementById('next-match-btn').addEventListener('click', () => {
+                if (currentMatches.length === 0) return;
+                activeMatchIdx = (activeMatchIdx + 1) % currentMatches.length;
+                updateActiveMatch();
+            });
+
+            document.getElementById('prev-match-btn').addEventListener('click', () => {
+                if (currentMatches.length === 0) return;
+                activeMatchIdx = (activeMatchIdx - 1 + currentMatches.length) % currentMatches.length;
+                updateActiveMatch();
+            });
+
+            // TOC Category Filter Buttons
+            document.querySelectorAll('.toc-filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.toc-filter-btn').forEach(b => {
+                        b.classList.remove('bg-sky-600', 'text-white');
+                        b.classList.add('bg-slate-800', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+                    });
+                    btn.classList.remove('bg-slate-800', 'light:bg-slate-200', 'text-slate-300', 'light:text-slate-700');
+                    btn.classList.add('bg-sky-600', 'text-white');
+
+                    const cat = btn.getAttribute('data-category');
+                    renderProtocols(cat, searchInput.value);
+                });
+            });
+
+            // Dark/Light Mode Switcher
+            themeToggleBtn.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                document.documentElement.classList.toggle('light');
+            });
+
+            // Responsive Sidebar Toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                sidebar.classList.remove('-translate-x-full');
+                sidebarBackdrop.classList.remove('hidden');
+            });
+            sidebarBackdrop.addEventListener('click', () => {
+                sidebar.classList.add('-translate-x-full');
+                sidebarBackdrop.classList.add('hidden');
+            });
+
+            // Scroll Progress Tracker & Back-To-Top Trigger
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + '%';
+
+                if (winScroll > 300) {
+                    backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                } else {
+                    backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Modal Calculators Controller
+            const modalCalc = document.getElementById('modal-calculator');
+            document.getElementById('calculator-btn').addEventListener('click', () => modalCalc.classList.remove('hidden'));
+            document.getElementById('close-modal').addEventListener('click', () => modalCalc.classList.add('hidden'));
+
+            document.querySelectorAll('.modal-tab-btn').forEach(tabBtn => {
+                tabBtn.addEventListener('click', () => {
+                    document.querySelectorAll('.modal-tab-btn').forEach(b => {
+                        b.classList.remove('border-sky-400', 'text-sky-400');
+                        b.classList.add('border-transparent', 'text-slate-400');
+                    });
+                    tabBtn.classList.remove('border-transparent', 'text-slate-400');
+                    tabBtn.classList.add('border-sky-400', 'text-sky-400');
+
+                    const tabTarget = tabBtn.getAttribute('data-tab');
+                    document.querySelectorAll('.modal-tab-content').forEach(c => c.classList.add('hidden'));
+                    document.getElementById(`modal-tab-${tabTarget}`).classList.remove('hidden');
+                });
+            });
+
+            // Bishop Score Calculator Functionality
+            document.getElementById('calc-bishop-btn').addEventListener('click', () => {
+                const d = parseInt(document.getElementById('bishop-dil').value);
+                const e = parseInt(document.getElementById('bishop-eff').value);
+                const s = parseInt(document.getElementById('bishop-sta').value);
+                const c = parseInt(document.getElementById('bishop-con').value);
+                const total = d + e + s + c;
+                const resDiv = document.getElementById('bishop-result');
+
+                if (total >= 6) {
+                    resDiv.className = "p-3 bg-emerald-950/80 rounded-lg text-center font-bold text-emerald-400 border border-emerald-600/40";
+                    resDiv.textContent = `Total Bishop Score: ${total} — Favorable Cervix (Direct Oxytocin or Amniotomy)`;
+                } else {
+                    resDiv.className = "p-3 bg-amber-950/80 rounded-lg text-center font-bold text-amber-400 border border-amber-600/40";
+                    resDiv.textContent = `Total Bishop Score: ${total} — Unfavorable Cervix (Ripening with Misoprostol or Foley Catheter)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
